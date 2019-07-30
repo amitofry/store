@@ -5,35 +5,36 @@ import './App.css';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      name: '',
-      password:''
-    };
-    this.onLoginSubmit = this.onLoginSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-
+  
   }
-  onLoginSubmit(event) {
-    event.preventDefault();
-    alert(this.state.name)
-    alert(this.state.password)
-    // My logic when i want to submit.
-  }
-
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
+  onLoginSubmit = (userName, password) => {    
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:3001/LoginUser";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);            
+            if (response.isLoggedIn) {
+              console.log('success');
+            } else {
+              console.log('failure');
+            }            
+        }
+    };    
+    const data = JSON.stringify({
+      userName,
+      password
     });
+    xhr.send(data);
   }
+
+
 
   render() {
     return (
       <div>
-       <Login 
-        onSubmit={this.onLoginSubmit} 
-        handleChange={this.handleChange}
-        state={this.state}
-       />
+       <Login onSubmit={this.onLoginSubmit}/>
       </div>
     );
   }

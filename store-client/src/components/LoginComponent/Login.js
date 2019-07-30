@@ -3,17 +3,40 @@ import React, { Component } from 'react';
 import './Login.css';
 
 class Login extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      userName: '',
+      password:'',        
+    };
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  onFormSubmit = (event) => {
+    event.preventDefault();
+    const userName = this.state.userName;
+    const password = this.state.password;
+
+    this.props.onSubmit(userName, password);
+  }
+
   render() {
     return (
       <div className="loginContainer">
-        <form onSubmit={this.props.onSubmit}>
+        <form className="formContainer" onSubmit={this.onFormSubmit}>
           <div className="container">
-            <label htmlFor="name" ><b>Username</b></label>
+            <label htmlFor="name" >User name</label>
             <input type="text"
               placeholder="Enter Username" 
-              name="name" 
-              value={this.props.state.name}
-              onChange={this.props.handleChange}
+              name="userName" 
+              value={this.state.userName}
+              onChange={this.handleChange}
               required
              />
 
@@ -22,8 +45,8 @@ class Login extends Component {
               type="password" 
               placeholder="Enter Password" 
               name="password"
-              value={this.props.state.password}
-              onChange={this.props.handleChange} 
+              value={this.state.password}
+              onChange={this.handleChange} 
               required
             />
 
