@@ -3,6 +3,14 @@ import { BrowserRouter as Router, Route , Link} from 'react-router-dom'
 
 import './Signup.css'
 
+function validate(userName, password, passwordRetype) {
+  // true means invalid, so our conditions got reversed
+  return {
+    userName: userName.length === 0,
+    password: password.length === 0 || passwordRetype.length === 0 || !(password.localeCompare(passwordRetype) === 0)
+  };
+}
+
 class Signup extends Component {
 
   constructor() {
@@ -31,6 +39,8 @@ class Signup extends Component {
   }
 
   render() {
+    const errors = validate(this.state.userName, this.state.password, this.state.passwordRetype);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
     return (
       <div className="loginContainer">
         <form className="formContainer" onSubmit={this.onFormSubmit}>
@@ -67,7 +77,7 @@ class Signup extends Component {
               required
             />
 
-            <button type="submit">Sign Up!</button>
+            <button type="submit" disabled={isDisabled}>Sign Up!</button>
 
             <Link to="/login">Log in</Link>
             

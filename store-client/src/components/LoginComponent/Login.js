@@ -4,6 +4,14 @@ import { BrowserRouter as Router, Route , Link} from 'react-router-dom'
 
 import './Login.css';
 
+function validate(userName, password) {
+  // true means invalid, so our conditions got reversed
+  return {
+    userName: userName.length === 0,
+    password: password.length === 0
+  };
+}
+
 class Login extends Component {
 
   constructor() {
@@ -20,6 +28,8 @@ class Login extends Component {
     });
   }
 
+
+
   onFormSubmit = (event) => {
     event.preventDefault();
     const userName = this.state.userName;
@@ -29,6 +39,8 @@ class Login extends Component {
   }
 
   render() {
+    const errors = validate(this.state.userName, this.state.password);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
     return (
       <div className="loginContainer">
         <form className="formContainer" onSubmit={this.onFormSubmit}>
@@ -38,7 +50,9 @@ class Login extends Component {
           </div>
           <label htmlFor="name" ><b>User name</b></label>
           
-          <input type="text"
+          <input
+            // className={errors.userName ? "error" : ""} 
+            type="text"
             placeholder="Enter Username" 
             name="userName" 
             value={this.state.userName}
@@ -46,8 +60,10 @@ class Login extends Component {
             required
             />
 
+
             <label htmlFor="password"><b>Password</b></label>
-            <input 
+            <input
+              // className={errors.password ? "error" : ""} 
               type="password" 
               placeholder="Enter Password" 
               name="password"
@@ -56,8 +72,8 @@ class Login extends Component {
               required
             />
 
-            <button type="submit">Login</button>
-
+            <button type="submit" disabled={isDisabled}>Log in</button>
+            
             <Link to="/signup">Signup</Link>
           </div>
           <div className="container" style={{backgroundColor: "#f1f1f1"}}>

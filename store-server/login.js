@@ -22,6 +22,8 @@ class LoginManager {
         }
         this.dbManager.writeDataObjectToDatabase(db)
 
+        return true;
+
     }
     
     deleteUser() {        

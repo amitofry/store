@@ -42,11 +42,12 @@ class App extends Component {
     var url = "http://localhost:3001/SignupUser";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");    
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);            
-            if (response.isLoggedIn) {
+            if (response.isSignedUp) {
               console.log('success');
+              this.setState({ isLoggedIn: true });
             } else {
               console.log('failure');
             }            
@@ -93,9 +94,19 @@ class App extends Component {
           {/* <Route path="/login">
             <Login onSubmit={this.onLoginSubmit}/>
           </Route> */}
-          <Route path="/signup">
+ 
+           <Route path="/signup" render={() => (
+             isLoggedIn ? (
+               <Redirect to="/"/>
+             ) : (
+               <Route path="/signup">
+                 <Signup onSubmit={this.onSignupSubmit}/>
+               </Route>
+             )
+           )}/>
+          {/* <Route path="/signup">
             <Signup onSubmit={this.onSignupSubmit}/>
-          </Route>
+          </Route> */}
         </Switch>
         
       </Router>
