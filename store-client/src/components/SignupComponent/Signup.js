@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route , Link} from 'react-router-dom'
 
+import './Signup.css'
 
-import './Login.css';
-
-class Login extends Component {
+class Signup extends Component {
 
   constructor() {
     super();
     this.state = {
       userName: '',
-      password:'',        
+      password:'',
+      passwordRetype:''    
     };
   }
 
@@ -24,8 +24,10 @@ class Login extends Component {
     event.preventDefault();
     const userName = this.state.userName;
     const password = this.state.password;
+    const passwordRetype = this.state.passwordRetype;
 
-    this.props.onSubmit(userName, password);
+
+    this.props.onSubmit(userName, password,passwordRetype);
   }
 
   render() {
@@ -33,18 +35,17 @@ class Login extends Component {
       <div className="loginContainer">
         <form className="formContainer" onSubmit={this.onFormSubmit}>
           <div className="container">
-          <div className="titleContainer">
-            <h2>Log in</h2>
-          </div>
-          <label htmlFor="name" ><b>User name</b></label>
-          
-          <input type="text"
-            placeholder="Enter Username" 
-            name="userName" 
-            value={this.state.userName}
-            onChange={this.handleChange}
-            required
-            />
+            <div className="titleContainer">
+              <h2>Sign Up</h2>
+            </div>
+            <label htmlFor="name" ><b>User name</b></label>
+            <input type="text"
+              placeholder="Enter Username" 
+              name="userName" 
+              value={this.state.userName}
+              onChange={this.handleChange}
+              required
+             />
 
             <label htmlFor="password"><b>Password</b></label>
             <input 
@@ -56,18 +57,27 @@ class Login extends Component {
               required
             />
 
-            <button type="submit">Login</button>
+            <label htmlFor="password"><b>Password (Confirm)</b></label>
+            <input 
+              type="password" 
+              placeholder="Confirm Password" 
+              name="passwordRetype"
+              value={this.state.passwordRetype}
+              onChange={this.handleChange} 
+              required
+            />
 
-            <Link to="/signup">Signup</Link>
+            <button type="submit">Sign Up!</button>
+
+            <Link to="/login">Log in</Link>
+            
           </div>
           <div className="container" style={{backgroundColor: "#f1f1f1"}}>
           </div>
         </form>
       </div>
-
-      
     );
   }
 }
 
-export default Login;
+export default Signup;
