@@ -1,0 +1,7 @@
+.product {
+    margin: 17px 3px;
+}
+
+.product > .card-body{
+    text-align: center;    
+}

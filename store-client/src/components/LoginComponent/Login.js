@@ -51,7 +51,6 @@ class Login extends Component {
           <label htmlFor="name" ><b>User name</b></label>
           
           <input
-            // className={errors.userName ? "error" : ""} 
             type="text"
             placeholder="Enter Username" 
             name="userName" 
@@ -63,7 +62,6 @@ class Login extends Component {
 
             <label htmlFor="password"><b>Password</b></label>
             <input
-              // className={errors.password ? "error" : ""} 
               type="password" 
               placeholder="Enter Password" 
               name="password"
