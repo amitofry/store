@@ -7,6 +7,8 @@ class ProductList extends React.Component {
     super(props);    
   }
 
+
+
   render = () => {    
     return (      
       <div className={'products-container'}>
@@ -14,8 +16,9 @@ class ProductList extends React.Component {
           return (
             <Product key={product.name + index}
             {...product}
-            onAddToCart={this.onAddToCart}
-            onAddToFavorites={this.onAddToFavorites} />        
+            onAddToCart={this.props.onAddToCart}
+            onAddToFavorites={this.props.onAddToFavorites} 
+            userName={this.props.userName}/>        
           );
         })}
       </div>

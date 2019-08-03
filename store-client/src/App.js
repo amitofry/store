@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Login from './components/LoginComponent/Login';
 import Signup from './components/SignupComponent/Signup';
+import Favorites from './components/FavoritesComponent/Favorites'
 import Product from './components/ProductComponent/Product';
 import Dashboard from './components/DashboardComponent/Dashboard'
 
@@ -12,8 +13,9 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      // isLoggedIn: false,
-      isLoggedIn : true,
+      userName: "",
+      isLoggedIn: false,
+      // isLoggedIn : true,
       productsList: []
     };  
   }
@@ -28,7 +30,6 @@ class App extends Component {
             return;
           }
 
-          // Examine the text in the response
           response.json().then((data) => {
             this.setState({
               productsList: data
@@ -48,13 +49,17 @@ class App extends Component {
     xhr.setRequestHeader("Content-Type", "application/json");    
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);            
+            var response = JSON.parse(xhr.responseText);           
             if (response.isLoggedIn) {
               console.log('success');
-              this.setState({ isLoggedIn: true });
+              this.setState({ 
+                userName: response.userName,
+                isLoggedIn: true 
+              });
             } else {
               console.log('failure');
-            }            
+            }
+            console.log("onLoginSubmit - User Name : ",this.state.userName)            
         }
     };    
     const data = JSON.stringify({
@@ -74,7 +79,10 @@ class App extends Component {
             var response = JSON.parse(xhr.responseText);            
             if (response.isSignedUp) {
               console.log('success');
-              this.setState({ isLoggedIn: true });
+              this.setState({ 
+                // userName: response.userName,
+                isLoggedIn: true 
+              });
             } else {
               console.log('failure');
             }            
@@ -88,30 +96,66 @@ class App extends Component {
     xhr.send(data);
   }
 
+  // getUserFavorites = () => 
+  // {
+  //   console.log("getUserFavorites - User Name : ",this.state.userName)
+  //   // fetch('http://localhost:3001/GetUserFavorites/'+this.state.userName)
+  //   fetch('http://localhost:3001/GetUserFavorites/amit')
+  //     .then(
+  //       (response) => {
+  //         if (response.status !== 200) {
+  //           console.log('Looks like there was a problem. Status Code: ' +
+  //             response.status);
+  //           return;
+  //         }
+
+  //         response.json().then((data) => {
+  //           return data;
+  //         });
+  //       }
+  //     )
+  //     .catch((err) => {
+  //       console.log('Fetch Error :-S', err);
+  //   });
+  // }
+
   onAddToCart = (product)=>{
     console.log('added to cart');
   }
-
-  onAddToFavorites = (product) => {
-    console.log('added to favorites');
+  onAddToFavorites = (product, userName) => {    
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:3001/AddProductToFavorites";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");    
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);            
+            if (response.isAddedToFavorites) {
+              console.log('added to favorites');
+            } else {
+              console.log('failed to add to favorites');
+            }            
+        }
+    };    
+    const data = JSON.stringify({
+      userName,
+      product
+    });
+    xhr.send(data);
+    console.log('added to favorite')
   }
 
   render() {
     const { isLoggedIn } = this.state;
-    const product = {
-      name:'Mimarch',
-      price:`15$`,
-      description:`The biggest Shambaz in the middle east`,
-      imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-    }
+    const { userName } = this.state.userName;
     const routes = [
       {
         text: 'Home',
         href: '/'
       },
       {
-        text: 'Products',
-        href: '/products'
+        text: 'Favorites',
+        href: '/favorites'
       },
       {
         text: 'Login',
@@ -123,25 +167,30 @@ class App extends Component {
         <NavigationBar routes={routes} />
         <Router>
           <Switch>          
-          <Route exact path="/" render={() => (
-            isLoggedIn ? (          
-                <div>
-                  <ProductList productList={this.state.productsList}></ProductList>
-                </div>
-            ) : (
-              <Redirect to="/login"/>
-            )
+            <Route exact path="/" render={() => (
+              isLoggedIn ? (          
+                  <div>
+                    <ProductList 
+                      productList={this.state.productsList} 
+                      onAddToCart={this.onAddToCart}
+                      onAddToFavorites={this.onAddToFavorites}
+                      userName={this.state.userName}>
+                    </ProductList>
+                  </div>
+              ) : (
+                <Redirect to="/login"/>
+              )
+            )}/>
 
-          )}/>
-          <Route path="/login" render={() => (
-            isLoggedIn ? (
-              <Redirect to="/"/>
-            ) : (
-              <Route path="/login">
-                <Login onSubmit={this.onLoginSubmit}/>
-              </Route>
-            )
-          )}/>
+            <Route path="/login" render={() => (
+              isLoggedIn ? (
+                <Redirect to="/"/>
+              ) : (
+                <Route path="/login">
+                  <Login onSubmit={this.onLoginSubmit}/>
+                </Route>
+              )
+            )}/>
           
             <Route path="/signup" render={() => (
               isLoggedIn ? (
@@ -152,6 +201,13 @@ class App extends Component {
                 </Route>
               )
             )}/>
+
+            <Route path="/favorites">
+              <Favorites 
+                productList={this.state.productsList}
+                // getUserFavorites={this.getUserFavorites}
+              />
+            </Route> 
 
           </Switch>
           

@@ -5,6 +5,12 @@ export default class Product extends Component {
         super(props);        
     }
 
+    addToFavorites = (event) => {
+        this.props.onAddToFavorites(this.props.name,this.props.userName)
+        console.log(this.props.name)
+        console.log(this.props.userName)
+    }
+
     render() {
       return (
         <div className="card product" style={{width:'18rem'}}>
@@ -23,7 +29,7 @@ export default class Product extends Component {
             </ul>    
             <div className="card-body">
             <a onClick={this.props.onAddToCart} href="#" className="card-link">ADD TO CART</a>
-            <a onClick={this.props.onAddToFavorites} href="#" className="card-link">FAVORITE</a>
+            <a onClick={this.addToFavorites} href="#" className="card-link">FAVORITE</a>
             </div>
         </div>
       );
