@@ -12,61 +12,35 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      // isLoggedIn: false
+      // isLoggedIn: false,
       isLoggedIn : true,
-      productsList: [
-        {
-          name:'Mimarch',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch2',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch2',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch2',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        },
-        {
-          name:'Mimarch2',
-          price:`15$`,
-          description:`The biggest Shambaz in the middle east`,
-          imageSrc:'https://scontent.ftlv6-1.fna.fbcdn.net/v/t1.0-9/57395730_10219199175509411_3820910177624784896_n.jpg?_nc_cat=107&_nc_oc=AQnWiPl9ayab6-MoQuYYOgESc-f7vom-ucus-EQ8WvEScXzCpmQWsd1coK77FNRDyjI&_nc_ht=scontent.ftlv6-1.fna&oh=d892da5a8a4e0927e74339da53afd83a&oe=5DE9AF24'
-        }
-      ]
-    };
-  
+      productsList: []
+    };  
   }
+
+  componentDidMount() {    
+    fetch('http://localhost:3001/GetProducts')
+      .then(
+        (response) => {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+
+          // Examine the text in the response
+          response.json().then((data) => {
+            this.setState({
+              productsList: data
+            })
+          });
+        }
+      )
+      .catch((err) => {
+        console.log('Fetch Error :-S', err);
+    });
+  }
+
   onLoginSubmit = (userName, password) => {    
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:3001/LoginUser";
