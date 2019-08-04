@@ -164,8 +164,8 @@ class App extends Component {
     ]
     return (
       <div>
-        <NavigationBar routes={routes} />
         <Router>
+          <NavigationBar routes={routes} />
           <Switch>          
             <Route exact path="/" render={() => (
               isLoggedIn ? (          

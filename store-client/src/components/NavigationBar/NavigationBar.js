@@ -1,4 +1,5 @@
 import React, { Component }  from 'react';
+import {Link} from 'react-router-dom';
 
 export const NavigationBar = (props)=> {
       return (        
@@ -8,11 +9,11 @@ export const NavigationBar = (props)=> {
             <span className="navbar-toggler-icon"></span>
           </button>
   
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">            
             <ul className="navbar-nav mr-auto">
               {props.routes.map((route, index)=>(
               <li key={route.text} className="nav-item">
-                <a className="nav-link" href={route.href}>{route.text}</a>
+                <Link to={route.href} className="nav-link">{route.text}</Link>
               </li>
               ))}
             </ul>
