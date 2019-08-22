@@ -7,8 +7,10 @@ export default class Product extends Component {
 
     addToFavorites = (event) => {
         this.props.onAddToFavorites(this.props.name,this.props.userName)
-        console.log(this.props.name)
-        console.log(this.props.userName)
+    }
+
+    addToCart = (event) => {
+        this.props.onAddToCart(this.props.name,this.props.userName)
     }
 
     render() {
@@ -28,7 +30,7 @@ export default class Product extends Component {
                 }
             </ul>    
             <div className="card-body">
-            <a onClick={this.props.onAddToCart} href="#" className="card-link">ADD TO CART</a>
+            <a onClick={this.addToCart} href="#" className="card-link">ADD TO CART</a>
             <a onClick={this.addToFavorites} href="#" className="card-link">FAVORITE</a>
             </div>
         </div>

@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 export const NavigationBar = (props)=> {
       return (        
         <nav className="navbar navbar-expand-sm navbar-light bg-light mx-auto">
-          <a className="navbar-brand" href="#">Store</a>
+          {/* <a className="navbar-brand" href="#">Store</a> */}
+          <Link to="/" className="navbar-brand">Store</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Login from './components/LoginComponent/Login';
 import Signup from './components/SignupComponent/Signup';
 import Favorites from './components/FavoritesComponent/Favorites'
+import Cart from './components/CartComponent/Cart'
+import Homepage from './components/HomepageComponent/Hompage'
 import Product from './components/ProductComponent/Product';
 import Dashboard from './components/DashboardComponent/Dashboard'
 
@@ -96,32 +98,10 @@ class App extends Component {
     xhr.send(data);
   }
 
-  // getUserFavorites = () => 
-  // {
-  //   console.log("getUserFavorites - User Name : ",this.state.userName)
-  //   // fetch('http://localhost:3001/GetUserFavorites/'+this.state.userName)
-  //   fetch('http://localhost:3001/GetUserFavorites/amit')
-  //     .then(
-  //       (response) => {
-  //         if (response.status !== 200) {
-  //           console.log('Looks like there was a problem. Status Code: ' +
-  //             response.status);
-  //           return;
-  //         }
-
-  //         response.json().then((data) => {
-  //           return data;
-  //         });
-  //       }
-  //     )
-  //     .catch((err) => {
-  //       console.log('Fetch Error :-S', err);
-  //   });
-  // }
-
   onAddToCart = (product)=>{
     console.log('added to cart');
   }
+
   onAddToFavorites = (product, userName) => {    
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:3001/AddProductToFavorites";
@@ -145,6 +125,29 @@ class App extends Component {
     console.log('added to favorite')
   }
 
+  onAddToCart = (product, userName) => {
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:3001/AddProductToCart";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");    
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);            
+            if (response.isAddedTocart) {
+              console.log('added to cart');
+            } else {
+              console.log('failed to add to cart');
+            }            
+        }
+    };    
+    const data = JSON.stringify({
+      userName,
+      product
+    });
+    xhr.send(data);
+    console.log('added to cart')
+  }
+
   render() {
     const { isLoggedIn } = this.state;
     const { userName } = this.state.userName;
@@ -154,12 +157,16 @@ class App extends Component {
         href: '/'
       },
       {
+        text: 'Vacations',
+        href: '/products'
+      },
+      {
         text: 'Favorites',
         href: '/favorites'
       },
       {
-        text: 'Login',
-        href: '/login'
+        text: 'Cart',
+        href: '/cart'
       }
     ]
     return (
@@ -170,13 +177,24 @@ class App extends Component {
             <Route exact path="/" render={() => (
               isLoggedIn ? (          
                   <div>
-                    <ProductList 
-                      productList={this.state.productsList} 
-                      onAddToCart={this.onAddToCart}
-                      onAddToFavorites={this.onAddToFavorites}
-                      userName={this.state.userName}>
-                    </ProductList>
+                    <Homepage/>
                   </div>
+              ) : (
+                <Redirect to="/login"/>
+              )
+            )}/>
+
+            <Route path="/products" render={() => (
+              isLoggedIn ? (
+                <div>
+                <ProductList 
+                  productList={this.state.productsList} 
+                  onAddToCart={this.onAddToCart}
+                  onAddToFavorites={this.onAddToFavorites}
+                  onAddToCart={this.onAddToCart}
+                  userName={this.state.userName}>
+                </ProductList>
+              </div>
               ) : (
                 <Redirect to="/login"/>
               )
@@ -202,12 +220,31 @@ class App extends Component {
               )
             )}/>
 
-            <Route path="/favorites">
-              <Favorites 
-                productList={this.state.productsList}
-                // getUserFavorites={this.getUserFavorites}
-              />
-            </Route> 
+            <Route path="/favorites" render={() => (
+              isLoggedIn ? (          
+                  <div>
+                    <Favorites 
+                      productList={this.state.productsList}
+                      userName={this.state.userName}
+                    />
+                  </div>
+              ) : (
+                <Redirect to="/login"/>
+              )
+            )}/>
+
+            <Route path="/cart" render={() => (
+              isLoggedIn ? (          
+                  <div>
+                    <Cart 
+                      productList={this.state.productsList}
+                      userName={this.state.userName}
+                    />
+                  </div>
+              ) : (
+                <Redirect to="/login"/>
+              )
+            )}/>  
 
           </Switch>
           

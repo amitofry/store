@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-background-slider": "^1.2.0",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "0.9.5",
+    "react-share": "^3.0.0",
     "reactjs-popup": "^1.4.2"
   },
   "devDependencies": {},

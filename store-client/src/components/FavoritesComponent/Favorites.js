@@ -1,8 +1,8 @@
 import React from 'react';
+
 import Product from '../ProductComponent/Product';
 import './Favorites.css'
 
-let places = ["Cape Town","New York"];
 
 class Favorites extends React.Component {
   constructor(props) {
@@ -15,7 +15,8 @@ class Favorites extends React.Component {
 
   componentDidMount()
   {
-    fetch('http://localhost:3001/GetUserFavorites/amit')
+    console.log(this.props.userName)
+    fetch('http://localhost:3001/GetUserFavorites/'+this.props.userName)
       .then(
         (response) => {
           if (response.status !== 200) {
