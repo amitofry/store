@@ -4,7 +4,8 @@ import Login from './components/LoginComponent/Login';
 import Signup from './components/SignupComponent/Signup';
 import Favorites from './components/FavoritesComponent/Favorites'
 import Cart from './components/CartComponent/Cart'
-import Homepage from './components/HomepageComponent/Hompage'
+import Homepage from './components/HomepageComponent/Homepage'
+import Admin from './components/AdminComponent/Admin'
 import Product from './components/ProductComponent/Product';
 import Dashboard from './components/DashboardComponent/Dashboard'
 
@@ -82,7 +83,7 @@ class App extends Component {
             if (response.isSignedUp) {
               console.log('success');
               this.setState({ 
-                // userName: response.userName,
+                userName: userName,
                 isLoggedIn: true 
               });
             } else {
@@ -149,8 +150,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.state;
-    const { userName } = this.state.userName;
+    const isLoggedIn = this.state.isLoggedIn;
     const routes = [
       {
         text: 'Home',
@@ -167,6 +167,10 @@ class App extends Component {
       {
         text: 'Cart',
         href: '/cart'
+      },
+      {
+        text: 'Admin',
+        href: '/admin'
       }
     ]
     return (
@@ -244,7 +248,17 @@ class App extends Component {
               ) : (
                 <Redirect to="/login"/>
               )
-            )}/>  
+            )}/>
+
+            <Route path="/admin" render={() => (
+              isLoggedIn ? (          
+                  <div>
+                    <Admin/>
+                  </div>
+              ) : (
+                <Redirect to="/login"/>
+              )
+            )}/>   
 
           </Switch>
           

@@ -1,0 +1,12 @@
+h1.homepage_title{ 
+    color:whitesmoke; 
+    font-family: 'Righteous';
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;; 
+    font-size: 165px; 
+    line-height: 160px; 
+    font-weight: normal; 
+    margin-bottom: 0px; 
+    margin-top: 40px; 
+    text-align: center; 
+    text-shadow: 0 1px 1px #fff; 
+}

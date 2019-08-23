@@ -77,7 +77,7 @@ class Signup extends Component {
               required
             />
 
-            <button type="submit" disabled={isDisabled}>Sign Up!</button>
+            <button className="login_button" type="submit" disabled={isDisabled}>Sign Up!</button>
 
             <Link to="/login">Log in</Link>
             

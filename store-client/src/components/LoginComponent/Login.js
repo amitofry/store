@@ -70,7 +70,7 @@ class Login extends Component {
               required
             />
 
-            <button type="submit" disabled={isDisabled}>Log in</button>
+            <button className="login_button" type="submit" disabled={isDisabled}>Log in</button>
             
             <Link to="/signup">Signup</Link>
           </div>

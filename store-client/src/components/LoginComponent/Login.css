@@ -3,11 +3,11 @@
 }
 
   
-  form button:hover {
+  form button.login_button:hover {
     background-color: #669509;
   }
   
-  form button:disabled {
+  form button.login_button:disabled {
     background-color: #dbf99f;
     color: #333;
   }
