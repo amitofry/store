@@ -52,6 +52,7 @@ class UpcomingEvents extends React.Component {
     return (
       <div>
         <h1>Upcoming Events</h1>
+        <h2 className="subtitle">Explore upcoming concerts in our destinations</h2>
         <div className="upcoming-events-container">
           <div className="cities">
             {this.props.productList.map((product, i) => {

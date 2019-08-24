@@ -171,7 +171,7 @@ class App extends Component {
         href: '/cart'
       },
       {
-        text: 'Concerts',
+        text: 'Find a concert',
         href: '/concerts'
       },
       {

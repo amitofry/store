@@ -60,7 +60,8 @@ class Concerts extends React.Component {
 
     return (
       <div>
-        <h1>Concerts</h1>
+        <h1>Find a concert</h1>
+        <h2 className="subtitle">Search and book a concert before you arrive</h2>
         <div className="concerts-container">
           <form onSubmit={this.handleSubmit}>
             <label>
