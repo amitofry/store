@@ -22,7 +22,7 @@ export default class Product extends Component {
             <p className="card-text">{this.props.description}</p>
             </div>        
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">{this.props.price}</li>
+                <li className="list-group-item">{this.props.price} $</li>
                 {this.props.extraData && this.props.extraData.length > 0 && 
                 this.props.extraData.map((extraDataItem)=>{
                     <li className="list-group-item">{extraDataItem}</li>

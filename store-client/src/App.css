@@ -12,13 +12,16 @@ form {
   border: 3px solid #f1f1f1;
 }
 
-.formContainer{
+.formContainer {
   width: 50%;
   margin-top: 10%;
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password],
+input[type=search],
+input[type=date] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -28,7 +31,8 @@ input[type=text], input[type=password] {
 }
 
 /* Set a style for all buttons */
-button.login_button {
+button.login_button,
+button.search_button {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -39,7 +43,8 @@ button.login_button {
 }
 
 /* Add a hover effect for buttons */
-button.login_button:hover {
+button.login_button:hover,
+button.search_button:hover {
   opacity: 0.8;
 }
 
@@ -79,6 +84,7 @@ span.psw {
     display: block;
     float: none;
   }
+
   .cancelbtn {
     width: 100%;
   }

@@ -1,0 +1,19 @@
+.concerts-container {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  height: 100%;
+  padding: 3em;
+}
+
+form {
+  padding: 1em;
+}
+
+label {
+  display: block;
+}
+
+ol {
+  margin: 0 2em;
+}

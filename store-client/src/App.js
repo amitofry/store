@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Login from './components/LoginComponent/Login';
 import Signup from './components/SignupComponent/Signup';
 import Favorites from './components/FavoritesComponent/Favorites'
+import Concerts from './components/ConcertsComponent/Concerts'
 import Cart from './components/CartComponent/Cart'
 import Homepage from './components/HomepageComponent/Homepage'
 import Admin from './components/AdminComponent/Admin'
@@ -169,10 +170,16 @@ class App extends Component {
         href: '/cart'
       },
       {
+        text: 'Concerts',
+        href: '/concerts'
+      }
+    ]
+    if (this.state.userName=="admin"){
+      routes[routes.length] = {
         text: 'Admin',
         href: '/admin'
       }
-    ]
+    }
     return (
       <div>
         <Router>
@@ -195,7 +202,6 @@ class App extends Component {
                   productList={this.state.productsList} 
                   onAddToCart={this.onAddToCart}
                   onAddToFavorites={this.onAddToFavorites}
-                  onAddToCart={this.onAddToCart}
                   userName={this.state.userName}>
                 </ProductList>
               </div>
@@ -237,6 +243,21 @@ class App extends Component {
               )
             )}/>
 
+            <Route path="/concerts" render={() => (
+              isLoggedIn ? (
+                <div>
+                  <Concerts
+                    productList={this.state.productsList}
+                    onAddToCart={this.onAddToCart}
+                    onAddToFavorites={this.onAddToFavorites}
+                    userName={this.state.userName}
+                  />
+                </div>
+              ) : (
+                  <Redirect to="/login" />
+                )
+            )} />
+
             <Route path="/cart" render={() => (
               isLoggedIn ? (          
                   <div>
@@ -251,7 +272,7 @@ class App extends Component {
             )}/>
 
             <Route path="/admin" render={() => (
-              isLoggedIn ? (          
+              (isLoggedIn && this.state.userName == "admin")  ? (          
                   <div>
                     <Admin/>
                   </div>
