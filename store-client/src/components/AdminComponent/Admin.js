@@ -35,11 +35,18 @@ class Admin extends Component {
     });
   }
 
-  onChoseUser = (userName) =>{
-    let indexUser = this.state.users.findIndex(user => user.userName === userName)
-    this.setState({
-      usersToShow : [this.state.users[indexUser]]
-    })
+  onChooseUser = (userName) =>{
+    if(userName === "all-users"){
+      this.setState({
+        usersToShow : this.state.users
+      })
+    }
+    else{
+      let indexUser = this.state.users.findIndex(user => user.userName === userName)
+      this.setState({
+        usersToShow : [this.state.users[indexUser]]
+      })
+    }
   }
 
   onDeleteUser = (userName) => {    
@@ -53,7 +60,8 @@ class Admin extends Component {
             if (response.isUserDeleted) {
               console.log('success');
               this.setState({ 
-                users: response.users              
+                users: response.users,
+                usersToShow : response.users              
               });
             } else {
               console.log('failure');
@@ -74,12 +82,18 @@ class Admin extends Component {
           <h1>Admin!</h1>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown button
+              Choose User
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" onClick = {() => this.onChoseUser("amit")}href="#">Amit</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" onClick = {() => this.onChooseUser("all-users")}href="#">All Users</a> 
+            {this.state.users.map((user,index) => {
+            return (
+              <div>
+                <a class="dropdown-item" onClick = {() => this.onChooseUser(user.userName)}href="#">{user.userName}</a>
+              </div>
+            )
+            }
+            )}
             </div>
           </div>
           <p/>
