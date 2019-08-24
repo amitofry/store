@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '../ProductComponent/Product';
+import songkick from '../../songkick'
 import './Concerts.css'
 
 class Concerts extends React.Component {
@@ -37,24 +38,10 @@ class Concerts extends React.Component {
       return
     }
 
-    this.findUpcomingEvents(product.id, this.state.date, this.state.date).then(upcomingEvents => {
+    songkick.findUpcomingEvents(product.id, { min_date: this.state.date, max_date: this.state.date }).then(upcomingEvents => {
       this.setState({
         product: product,
         events: upcomingEvents
-      })
-    })
-  }
-
-  findUpcomingEvents(metro_area_id, min_date, max_date) {
-    let url = 'https://api.songkick.com/api/3.0/metro_areas/' + metro_area_id + '/calendar.json?apikey=8NE1zK8cPERqD8IJ'
-    if (min_date) url += '&min_date=' + min_date
-    if (max_date) url += '&max_date=' + max_date
-
-    return fetch(url).then(response => {
-      if (response.status !== 200) return null
-      return response.json().then(data => {
-        if (data.resultsPage.status !== 'ok') return null
-        return data.resultsPage.results.event || []
       })
     })
   }
@@ -96,7 +83,7 @@ class Concerts extends React.Component {
 
           </form>
 
-          {listItems && <ol className="upcoming-events">
+          {listItems && <ol className="results">
             {listItems}
           </ol>}
 
