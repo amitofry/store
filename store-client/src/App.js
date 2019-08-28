@@ -13,7 +13,9 @@ import Dashboard from './components/DashboardComponent/Dashboard'
 
 import './App.css';
 import ProductList from './components/ProductListComponent/ProductList';
-import {NavigationBar} from './components/NavigationBar/NavigationBar';
+// import {NavigationBar} from './components/NavigationBar/NavigationBar';
+import NavigationBar from './components/NavigationBar/NavigationBar';
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -23,7 +25,8 @@ class App extends Component {
       // cookie: { expire },
       // isLoggedIn: localStorage.getItem("isloggedin"),//false,
       // isLoggedIn : true,
-      productsList: []
+      productsList: [],
+      search:""
     };  
   }
 
@@ -105,8 +108,11 @@ class App extends Component {
     xhr.send(data);
   }
 
-  onAddToCart = (product)=>{
-    console.log('added to cart');
+
+  onSearch = (input) => {
+    this.setState({
+      search: input
+    })
   }
 
   onAddToFavorites = (product, userName) => {    
@@ -192,7 +198,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <NavigationBar routes={routes} />
+          <NavigationBar routes={routes} onSearch={this.onSearch}/>
           <Switch>          
             <Route exact path="/" render={() => (
               isLoggedIn ? (          
@@ -211,7 +217,8 @@ class App extends Component {
                   productList={this.state.productsList} 
                   onAddToCart={this.onAddToCart}
                   onAddToFavorites={this.onAddToFavorites}
-                  userName={this.state.userName}>
+                  userName={this.state.userName}
+                  search={this.state.search}>
                 </ProductList>
               </div>
               ) : (
