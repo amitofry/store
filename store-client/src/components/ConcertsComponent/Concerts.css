@@ -14,6 +14,12 @@ label {
   display: block;
 }
 
-ol {
+ol.results {
+  flex: 1;
   margin: 0 2em;
+}
+
+li.no-results {
+  list-style: none;
+  text-align: center;
 }

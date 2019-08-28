@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from '../ProductComponent/Product';
+import songkick from '../../songkick'
 import './Concerts.css'
 
 class Concerts extends React.Component {
@@ -9,7 +10,7 @@ class Concerts extends React.Component {
     this.state = {
       today: new Date().toISOString().substring(0, 10),
       product: null,
-      events: [],
+      events: null,
       date: '',
       city: ''
     };
@@ -30,36 +31,37 @@ class Concerts extends React.Component {
     const product = this.props.productList.find(product => product.name === this.state.city);
 
     if (!product) {
-      console.log('city not found')
+      this.setState({
+        product: null,
+        events: null
+      })
       return
     }
 
-    this.findUpcomingEvents(product.id, this.state.date, this.state.date).then(upcomingEvents => {
+    songkick.findUpcomingEvents(product.id, { min_date: this.state.date, max_date: this.state.date }).then(upcomingEvents => {
       this.setState({
         product: product,
-        events: upcomingEvents || []
-      })
-    })
-  }
-
-  findUpcomingEvents(metro_area_id, min_date, max_date) {
-    let url = 'https://api.songkick.com/api/3.0/metro_areas/' + metro_area_id + '/calendar.json?apikey=8NE1zK8cPERqD8IJ'
-    if (min_date) url += '&min_date=' + min_date
-    if (max_date) url += '&max_date=' + max_date
-
-    return fetch(url).then(response => {
-      if (response.status !== 200) return
-      return response.json().then(data => {
-        if (data.resultsPage.status !== 'ok') return
-        return data.resultsPage.results.event
+        events: upcomingEvents
       })
     })
   }
 
   render = () => {
+    
+    const listItems = this.state.events && this.state.events.map(event => {
+      return <li key={event.id}>
+        <a href={event.uri} target="_blank">{event.displayName}</a>
+      </li>
+    })
+
+    if (listItems && !listItems.length) {
+      listItems.push(<li key="empty" className="no-results">No upcoming shows in {this.state.product.name}</li>)
+    }
+
     return (
       <div>
-        <h1>Concerts</h1>
+        <h1>Find a concert</h1>
+        <h2 className="subtitle">Search and book a concert before you arrive</h2>
         <div className="concerts-container">
           <form onSubmit={this.handleSubmit}>
             <label>
@@ -82,13 +84,9 @@ class Concerts extends React.Component {
 
           </form>
 
-          <ol className="upcoming-events">
-            {this.state.events.map(event => {
-              return <li key={event.id}>
-                <a href={event.uri} target="_blank">{event.displayName}</a>
-              </li>
-            })}
-          </ol>
+          {listItems && <ol className="results">
+            {listItems}
+          </ol>}
 
           {this.state.product &&
             <Product {...this.state.product}

@@ -4,6 +4,7 @@ import Login from './components/LoginComponent/Login';
 import Signup from './components/SignupComponent/Signup';
 import Favorites from './components/FavoritesComponent/Favorites'
 import Concerts from './components/ConcertsComponent/Concerts'
+import UpcomingEvents from './components/UpcomingEventsComponent/UpcomingEvents'
 import Cart from './components/CartComponent/Cart'
 import Homepage from './components/HomepageComponent/Homepage'
 import Admin from './components/AdminComponent/Admin'
@@ -174,8 +175,12 @@ class App extends Component {
         href: '/cart'
       },
       {
-        text: 'Concerts',
+        text: 'Find a concert',
         href: '/concerts'
+      },
+      {
+        text: 'Upcoming Events',
+        href: '/upcoming-events'
       }
     ]
     if (this.state.userName=="admin"){
@@ -251,6 +256,21 @@ class App extends Component {
               isLoggedIn ? (
                 <div>
                   <Concerts
+                    productList={this.state.productsList}
+                    onAddToCart={this.onAddToCart}
+                    onAddToFavorites={this.onAddToFavorites}
+                    userName={this.state.userName}
+                  />
+                </div>
+              ) : (
+                  <Redirect to="/login" />
+                )
+            )} />
+
+            <Route path="/upcoming-events" render={() => (
+              isLoggedIn ? (
+                <div>
+                  <UpcomingEvents
                     productList={this.state.productsList}
                     onAddToCart={this.onAddToCart}
                     onAddToFavorites={this.onAddToFavorites}
