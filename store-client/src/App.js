@@ -10,6 +10,7 @@ import Homepage from './components/HomepageComponent/Homepage'
 import Admin from './components/AdminComponent/Admin'
 import Product from './components/ProductComponent/Product';
 import Dashboard from './components/DashboardComponent/Dashboard'
+import Cookies from 'js-cookie';
 
 import './App.css';
 import ProductList from './components/ProductListComponent/ProductList';
@@ -27,7 +28,16 @@ class App extends Component {
       // isLoggedIn : true,
       productsList: [],
       search:""
-    };  
+    };
+    
+    if(Cookies.get('cookie')){
+      this.state = {
+        userName: Cookies.getJSON('cookie').userName,
+        isLoggedIn: Cookies.getJSON('cookie').isLoggedIn,
+        productsList: [],
+        search:""
+      }
+    }
   }
 
   componentDidMount() {    
@@ -52,7 +62,7 @@ class App extends Component {
     });
   }
 
-  onLoginSubmit = (userName, password) => {    
+  onLoginSubmit = (userName, password, rememberMe) => {    
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:3001/LoginUser";
     xhr.open("POST", url, true);
@@ -68,6 +78,16 @@ class App extends Component {
                 // isLoggedIn: localStorage.setItem("isloggedin", true),
                 // expiry: localStorage.setItem("expiry", new Date().getTime()/1000)
               });
+              let timeToExpire;
+              if(rememberMe){
+                timeToExpire = 365;
+              }else{
+                timeToExpire = new Date(new Date().getTime() + 5 * 60 * 60 * 1000)
+              }
+              Cookies.set('cookie', {
+                userName: response.userName,
+                isLoggedIn: true 
+                }, { expires: timeToExpire });
             } else {
               console.log('failure');
             }
@@ -76,7 +96,8 @@ class App extends Component {
     };    
     const data = JSON.stringify({
       userName,
-      password
+      password,
+      rememberMe
     });
     xhr.send(data);
   }

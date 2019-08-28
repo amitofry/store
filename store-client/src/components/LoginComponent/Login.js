@@ -18,7 +18,8 @@ class Login extends Component {
     super();
     this.state = {
       userName: '',
-      password:'',        
+      password:'',
+      rememberMe:false        
     };
   }
 
@@ -34,8 +35,9 @@ class Login extends Component {
     event.preventDefault();
     const userName = this.state.userName;
     const password = this.state.password;
+    const rememberMe = this.state.rememberMe;
 
-    this.props.onSubmit(userName, password);
+    this.props.onSubmit(userName, password, rememberMe);
   }
 
   render() {
@@ -71,7 +73,10 @@ class Login extends Component {
             />
 
             <button className="login_button" type="submit" disabled={isDisabled}>Log in</button>
-            
+            <label>
+            <input type="checkbox" name="rememberMe"  id="mybox" onChange={this.handleChange} 
+                              defaultChecked={this.state.checked}/> Remember me
+            </label>
             <Link to="/signup">Signup</Link>
           </div>
           <div className="container" style={{backgroundColor: "#f1f1f1"}}>
