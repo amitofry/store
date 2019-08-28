@@ -128,6 +128,7 @@ class App extends Component {
                 isLoggedIn: true 
                 }, { expires: timeToExpire });
             } else {
+              alert("User name already exist")
               console.log('failure');
             }            
         }
