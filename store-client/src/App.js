@@ -19,6 +19,8 @@ class App extends Component {
     this.state = {
       userName: "",
       isLoggedIn: false,
+      // cookie: { expire },
+      // isLoggedIn: localStorage.getItem("isloggedin"),//false,
       // isLoggedIn : true,
       productsList: []
     };  
@@ -58,7 +60,9 @@ class App extends Component {
               console.log('success');
               this.setState({ 
                 userName: response.userName,
-                isLoggedIn: true 
+                isLoggedIn: true
+                // isLoggedIn: localStorage.setItem("isloggedin", true),
+                // expiry: localStorage.setItem("expiry", new Date().getTime()/1000)
               });
             } else {
               console.log('failure');
