@@ -9,7 +9,7 @@ import Cart from './components/CartComponent/Cart'
 import Homepage from './components/HomepageComponent/Homepage'
 import Admin from './components/AdminComponent/Admin'
 import Product from './components/ProductComponent/Product';
-import Dashboard from './components/DashboardComponent/Dashboard'
+import Readme from './components/ReadmeComponent/Readme'
 import Cookies from 'js-cookie';
 
 import './App.css';
@@ -343,6 +343,8 @@ class App extends Component {
                 <Redirect to="/login"/>
               )
             )}/>   
+
+            <Route path="/readme" component={Readme} />
 
           </Switch>
           
