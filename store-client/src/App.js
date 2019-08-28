@@ -102,7 +102,7 @@ class App extends Component {
     xhr.send(data);
   }
 
-  onSignupSubmit = (userName, password, passwordRetype) => {    
+  onSignupSubmit = (userName, password, passwordRetype, rememberMe) => {    
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:3001/SignupUser";
     xhr.open("POST", url, true);
@@ -116,6 +116,17 @@ class App extends Component {
                 userName: userName,
                 isLoggedIn: true 
               });
+              let timeToExpire;
+              
+              if(rememberMe){
+                timeToExpire = 365;
+              }else{
+                timeToExpire = new Date(new Date().getTime() + 5 * 60 * 60 * 1000)
+              }
+              Cookies.set('cookie', {
+                userName: response.userName,
+                isLoggedIn: true 
+                }, { expires: timeToExpire });
             } else {
               console.log('failure');
             }            

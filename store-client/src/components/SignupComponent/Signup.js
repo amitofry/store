@@ -18,7 +18,8 @@ class Signup extends Component {
     this.state = {
       userName: '',
       password:'',
-      passwordRetype:''    
+      passwordRetype:'',
+      rememberMe:false    
     };
   }
 
@@ -33,9 +34,11 @@ class Signup extends Component {
     const userName = this.state.userName;
     const password = this.state.password;
     const passwordRetype = this.state.passwordRetype;
+    const rememberMe = this.state.rememberMe;
 
 
-    this.props.onSubmit(userName, password,passwordRetype);
+
+    this.props.onSubmit(userName, password,passwordRetype,rememberMe);
   }
 
   render() {
@@ -78,7 +81,10 @@ class Signup extends Component {
             />
 
             <button className="login_button" type="submit" disabled={isDisabled}>Sign Up!</button>
-
+            <label>
+            <input type="checkbox" name="rememberMe"  id="mybox" onChange={this.handleChange} 
+                              defaultChecked={this.state.checked}/> Remember me
+            </label>
             <Link to="/login">Log in</Link>
             
           </div>
