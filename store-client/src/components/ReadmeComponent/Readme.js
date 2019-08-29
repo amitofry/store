@@ -35,15 +35,14 @@ class Readme extends Component {
           Specify all the different route your app supports</h3>
           <ul>
             <li>'/'</li>
-            <li>'/SignupUser'</li>
-            <li>'/DeleteUser'</li>
-            <li>'/GetProducts'</li>
-            <li>'/AddProductToFavorites'</li>
-            <li>'/AddProductToCart'</li>
-            <li>'/getUserFavorites/:userName'</li>
-            <li>'/getUserCart/:userName'</li>
-            <li>'/purchaseCart/:userName'</li>
-            <li>'/getUsers'</li>
+            <li>'/login'</li>
+            <li>'/signup'</li>
+            <li>'/favorites'</li>
+            <li>'/concerts'</li>
+            <li>'/upcoming-events'</li>
+            <li>'/cart'</li>
+            <li>'/admin'</li>
+            <li>'/readme'</li>
           </ul>
 
           <h3>Did you implement the store using react.js?
@@ -74,16 +73,15 @@ class Readme extends Component {
           <h3>
           Specify all the different route your app supports</h3>
           <ul>
-            <li>'/'</li>
-            <li>'/SignupUser'</li>
-            <li>'/DeleteUser'</li>
-            <li>'/GetProducts'</li>
-            <li>'/AddProductToFavorites'</li>
-            <li>'/AddProductToCart'</li>
-            <li>'/getUserFavorites/:userName'</li>
-            <li>'/getUserCart/:userName'</li>
-            <li>'/purchaseCart/:userName'</li>
-            <li>'/getUsers'</li>
+          <li>'/'</li>
+            <li>'/login'</li>
+            <li>'/signup'</li>
+            <li>'/favorites'</li>
+            <li>'/concerts'</li>
+            <li>'/upcoming-events'</li>
+            <li>'/cart'</li>
+            <li>'/admin'</li>
+            <li>'/readme'</li>
           </ul>
 
           <h3>Did you implement the store using react.js?

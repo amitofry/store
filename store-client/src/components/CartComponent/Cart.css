@@ -7,4 +7,14 @@
   flex-wrap: wrap;
 }
 
+div.wrapper{
+  text-align: center;
+}
+
+button.cart_submit{
+  position: absolute;
+  top: 50%;
+}
+
+
 h1 { color: black; font-family: 'Open Sans Condensed', sans-serif; font-size: 32px; font-weight: 700; line-height: 64px; margin: 0 0 0; padding: 20px 30px; text-align: center; text-transform: uppercase; }

@@ -93,9 +93,12 @@ class Favorites extends React.Component {
             return;
           })}
       </div>
-      <button onClick={this.onCheckOut}>
-        Check Out!
-      </button>
+      <div className={'wrapper'}>
+        <button className={'cart_submit'} class="btn btn-primary" onClick={this.onCheckOut}>
+          Check Out!
+        </button>
+      </div>
+
     </div>      
 
     )
