@@ -51,33 +51,3 @@ class NavigationBar extends React.Component {
 } 
 
 export default NavigationBar;
-
-// export const NavigationBar = (props)=> {
-  
-//   return (        
-//         <nav className="navbar navbar-expand-sm navbar-light bg-light mx-auto">
-//           {/* <a className="navbar-brand" href="#">Store</a> */}
-//           <Link to="/" className="navbar-brand">Store</Link>
-//           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-//             <span className="navbar-toggler-icon"></span>
-//           </button>
-  
-//           <div className="collapse navbar-collapse" id="navbarSupportedContent">            
-//             <ul className="navbar-nav mr-auto">
-//               {props.routes.map((route, index)=>(
-//               <li key={route.text} className="nav-item">
-//                 <Link to={route.href} className="nav-link">{route.text}</Link>
-//               </li>
-//               ))}
-//             </ul>
-
-//             <form className="form-inline my-2 my-lg-0">
-//               <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-//               <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={() => props.onSearch()}>Search</button>
-//             </form>
-
-//           </div>
-//         </nav>
-//       );  
-// } 
-  

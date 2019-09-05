@@ -14,7 +14,6 @@ import Cookies from 'js-cookie';
 
 import './App.css';
 import ProductList from './components/ProductListComponent/ProductList';
-// import {NavigationBar} from './components/NavigationBar/NavigationBar';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 
 class App extends Component {
@@ -23,9 +22,6 @@ class App extends Component {
     this.state = {
       userName: "",
       isLoggedIn: false,
-      // cookie: { expire },
-      // isLoggedIn: localStorage.getItem("isloggedin"),//false,
-      // isLoggedIn : true,
       productsList: [],
       search:""
     };
@@ -75,8 +71,6 @@ class App extends Component {
               this.setState({ 
                 userName: response.userName,
                 isLoggedIn: true
-                // isLoggedIn: localStorage.setItem("isloggedin", true),
-                // expiry: localStorage.setItem("expiry", new Date().getTime()/1000)
               });
               let timeToExpire;
               if(rememberMe){
@@ -345,7 +339,7 @@ class App extends Component {
               )
             )}/>   
 
-            <Route path="/readme" component={Readme} />
+            <Route path="/readme.html" component={Readme} />
 
           </Switch>
           

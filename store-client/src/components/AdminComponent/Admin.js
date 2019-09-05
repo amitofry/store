@@ -66,7 +66,6 @@ class Admin extends Component {
             } else {
               console.log('failure');
             }
-            console.log("onLoginSubmit - User Name : ",this.state.userName)            
         }
     };    
     const data = JSON.stringify({

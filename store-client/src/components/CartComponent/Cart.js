@@ -14,7 +14,6 @@ class Favorites extends React.Component {
 
   componentDidMount()
   {
-    console.log(this.props.userName)
     fetch('http://localhost:3001/GetUserCart/'+this.props.userName)
       .then(
         (response) => {
@@ -57,12 +56,9 @@ class Favorites extends React.Component {
             } else {
               console.log('failure');
             }
-            console.log("onLoginSubmit - User Name : ",this.state.userName)            
         }
     };    
     const data = JSON.stringify({
-      // userName,
-      // password
     });
     xhr.send(data);
   }
